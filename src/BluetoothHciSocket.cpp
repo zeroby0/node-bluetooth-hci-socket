@@ -273,7 +273,7 @@ void BluetoothHciSocket::emitErrnoError() {
     Nan::New(strerror(errno)).ToLocalChecked()
   };
 
-  Local<Value> error = errorConstructor->NewInstance(1, constructorArgs);
+  Local<Value> error = Nan::NewInstance(errorConstructor, 1, constructorArgs).ToLocalChecked();
 
   Local<Value> argv[2] = {
     Nan::New("error").ToLocalChecked(),
@@ -535,4 +535,4 @@ void BluetoothHciSocket::PollCallback(uv_poll_t* handle, int status, int events)
   p->poll();
 }
 
-NODE_MODULE(binding, BluetoothHciSocket::Init);
+NODE_MODULE(NODE_GYP_MODULE_NAME, BluetoothHciSocket::Init);
